@@ -1,0 +1,2756 @@
+file 211036 1663114282                                          
+version 3
+run General-0-20220913-22:54:02-13328
+attr configname General
+attr datetime 20220913-22:54:02
+attr datetimef 20220913-225402
+attr experiment General
+attr inifile multi_path.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network TSN_multipath
+attr processid 13328
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config image-path ../../../images
+config network TSN_multipath
+config *.macForwardingTableConfigurator.typename ""
+config *.*.eth[*].bitrate 100Mbps
+config **.channel.per 0.2
+config *.*.hasStreamRedundancy true
+config *.source.numApps 2
+config *.source.app[*].typename UdpSourceApp
+config *.source.app[*].io.destAddress "\"destination\""
+config *.source.app[*].source.packetNameFormat "\"%M-%m-%c\""
+config *.source.app[*].source.displayStringTextFormat "\"sent %p pk (%l)\""
+config *.source.app[*].source.packetLength 1200B
+config *.source.app[*].source.productionInterval truncnormal(100us,50us)
+config *.source.app[0].display-name app0
+config *.source.app[1].display-name app1
+config *.source.app[0].io.destPort 1000
+config *.source.app[1].io.destPort 1001
+config *.destination.numApps 2
+config *.destination.app[*].typename UdpSinkApp
+config *.destination.app[0].io.localPort 1000
+config *.destination.app[1].io.localPort 1001
+config *.destination.eth[*].address "\"0A-AA-12-34-56-78\""
+config *.visualizer.infoVisualizer.modules "\"*.source.app[0].source or *.destination.app[0]\""
+config *.*.bridging.streamRelay.typename StreamRelayLayer
+config *.*.bridging.streamCoder.typename StreamCoderLayer
+config *.streamRedundancyConfigurator.typename StreamRedundancyConfigurator
+config *.streamRedundancyConfigurator.configuration "[{name: \"S1\", packetFilter: \"*-app1-*\", source: \"source\", destination: \"destination\",\n                                                 trees: [[[\"source\", \"s1\", \"s2a\", \"s3a\", \"destination\"]]]},\n\t{name: \"S2\", packetFilter: \"*-app0-*\", source: \"source\", destination: \"destination\",\n                                                 trees: [[[\"source\", \"s1\", \"s2b\", \"s3b\", \"destination\"]]]}]"
+config *.visualizer.streamRedundancyConfigurationVisualizer.displayTrees true
+config *.visualizer.streamRedundancyConfigurationVisualizer.lineColor "\"black\""
+
+vector 0 TSN_multipath.source.eth[0].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 1 TSN_multipath.source.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 2 TSN_multipath.source.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 3 TSN_multipath.source.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 4 TSN_multipath.s1.eth[0].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 5 TSN_multipath.s1.eth[1].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 6 TSN_multipath.s1.eth[2].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 7 TSN_multipath.s2a.eth[0].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 8 TSN_multipath.s2a.eth[1].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 9 TSN_multipath.s2a.eth[2].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 10 TSN_multipath.s3a.eth[0].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 11 TSN_multipath.s3a.eth[1].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 12 TSN_multipath.s2b.eth[0].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 13 TSN_multipath.s2b.eth[1].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 14 TSN_multipath.s2b.eth[2].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 15 TSN_multipath.s3b.eth[0].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 16 TSN_multipath.s3b.eth[1].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 17 TSN_multipath.destination.eth[0].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 18 TSN_multipath.destination.eth[1].phyLayer.transmitter transmitting:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "count(transmissionStarted) - count(transmissionEnded)"
+attr title "transmitting state"
+attr type int
+vector 19 TSN_multipath.destination.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 20 TSN_multipath.destination.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 21 TSN_multipath.destination.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 22 TSN_multipath.source.app[0].source packetLengths:vector ETV
+attr interpolationmode none
+attr moduledisplaypath TSN_multipath.source.app0.source
+attr recordingmode vector
+attr source packetLength(packetPushed)
+attr title "packet lengths"
+attr unit b
+vector 23 TSN_multipath.source.app[1].source packetLengths:vector ETV
+attr interpolationmode none
+attr moduledisplaypath TSN_multipath.source.app1.source
+attr recordingmode vector
+attr source packetLength(packetPushed)
+attr title "packet lengths"
+attr unit b
+vector 24 TSN_multipath.source.app[0].io packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr moduledisplaypath TSN_multipath.source.app0.io
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 25 TSN_multipath.source.app[1].io packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr moduledisplaypath TSN_multipath.source.app1.io
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 26 TSN_multipath.source.udp packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 27 TSN_multipath.source.bridging.streamIdentifier.identifier incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 28 TSN_multipath.source.bridging.streamIdentifier.identifier outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 29 TSN_multipath.source.bridging.streamCoder.encoder incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 30 TSN_multipath.source.bridging.streamCoder.encoder outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 31 TSN_multipath.source.ieee8021q.qTagHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 32 TSN_multipath.source.ieee8021q.qTagHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 33 TSN_multipath.source.ieee8021r.rTagHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 34 TSN_multipath.source.ieee8021r.rTagHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 35 TSN_multipath.source.ethernet.macHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 36 TSN_multipath.source.ethernet.macHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 37 TSN_multipath.source.ethernet.paddingInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 38 TSN_multipath.source.ethernet.paddingInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 39 TSN_multipath.source.ethernet.fcsInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 40 TSN_multipath.source.ethernet.fcsInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 41 TSN_multipath.source.eth[0].macLayer.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 42 TSN_multipath.source.eth[0].macLayer.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 43 TSN_multipath.source.eth[0].macLayer.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 44 TSN_multipath.source.eth[0].macLayer.server incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "incoming packet lengths"
+attr unit b
+vector 45 TSN_multipath.source.eth[0].macLayer.server outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushed)
+attr title "outgoing packet lengths"
+attr unit b
+vector 46 TSN_multipath.source.eth[0].macLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 47 TSN_multipath.source.eth[0].macLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 48 TSN_multipath.source.eth[0].phyLayer.phyHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 49 TSN_multipath.source.eth[0].phyLayer.phyHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 50 TSN_multipath.source.eth[0].phyLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 51 TSN_multipath.source.eth[0].phyLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 52 TSN_multipath.source.eth[0].macLayer.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 53 TSN_multipath.source.eth[0].macLayer.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 54 TSN_multipath.source.eth[0].phyLayer.transmitter transmissionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(transmissionEnded)
+attr title "transmission time"
+attr unit s
+vector 55 TSN_multipath.s1.eth[2].phyLayer.receiver receptionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(receptionEnded)
+attr title "reception time"
+attr unit s
+vector 56 TSN_multipath.s1.eth[2].phyLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 57 TSN_multipath.s1.eth[2].phyLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 58 TSN_multipath.s1.eth[2].phyLayer.phyHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 59 TSN_multipath.s1.eth[2].phyLayer.phyHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 60 TSN_multipath.s1.eth[2].macLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 61 TSN_multipath.s1.eth[2].macLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 62 TSN_multipath.s1.eth[2].macLayer.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 63 TSN_multipath.s1.eth[2].macLayer.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 64 TSN_multipath.s1.ethernet.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 65 TSN_multipath.s1.ethernet.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 66 TSN_multipath.s1.ethernet.macHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 67 TSN_multipath.s1.ethernet.macHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 68 TSN_multipath.s1.ieee8021r.rTagHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 69 TSN_multipath.s1.ieee8021r.rTagHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 70 TSN_multipath.s1.ieee8021q.qTagHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 71 TSN_multipath.s1.ieee8021q.qTagHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 72 TSN_multipath.s1.bridging.interfaceRelay.learner incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 73 TSN_multipath.s1.bridging.interfaceRelay.learner outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 74 TSN_multipath.s1.bridging.streamCoder.decoder incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 75 TSN_multipath.s1.bridging.streamCoder.decoder outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 76 TSN_multipath.s1.bridging.streamRelay.merger incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 77 TSN_multipath.s1.bridging.streamRelay.merger outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 78 TSN_multipath.s1.bridging.directionReverser.reverser incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 79 TSN_multipath.s1.bridging.directionReverser.reverser outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 80 TSN_multipath.s1.bridging.streamIdentifier.identifier incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 81 TSN_multipath.s1.bridging.streamIdentifier.identifier outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 82 TSN_multipath.s1.bridging.streamCoder.encoder incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 83 TSN_multipath.s1.bridging.streamCoder.encoder outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 84 TSN_multipath.s1.ieee8021q.qTagHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 85 TSN_multipath.s1.ieee8021q.qTagHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 86 TSN_multipath.s1.ieee8021r.rTagHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 87 TSN_multipath.s1.ieee8021r.rTagHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 88 TSN_multipath.s1.ethernet.macHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 89 TSN_multipath.s1.ethernet.macHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 90 TSN_multipath.s1.ethernet.paddingInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 91 TSN_multipath.s1.ethernet.paddingInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 92 TSN_multipath.s1.ethernet.fcsInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 93 TSN_multipath.s1.ethernet.fcsInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 94 TSN_multipath.s1.eth[1].macLayer.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 95 TSN_multipath.s1.eth[1].macLayer.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 96 TSN_multipath.s1.eth[1].macLayer.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 97 TSN_multipath.s1.eth[1].macLayer.server incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "incoming packet lengths"
+attr unit b
+vector 98 TSN_multipath.s1.eth[1].macLayer.server outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushed)
+attr title "outgoing packet lengths"
+attr unit b
+vector 99 TSN_multipath.s1.eth[1].macLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 100 TSN_multipath.s1.eth[1].macLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 101 TSN_multipath.s1.eth[1].phyLayer.phyHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 102 TSN_multipath.s1.eth[1].phyLayer.phyHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 103 TSN_multipath.s1.eth[1].phyLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 104 TSN_multipath.s1.eth[1].phyLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 105 TSN_multipath.s1.eth[1].macLayer.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 106 TSN_multipath.s1.eth[1].macLayer.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 107 TSN_multipath.s1.eth[1].phyLayer.transmitter transmissionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(transmissionEnded)
+attr title "transmission time"
+attr unit s
+vector 108 TSN_multipath.s2b.eth[2].phyLayer.receiver receptionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(receptionEnded)
+attr title "reception time"
+attr unit s
+vector 109 TSN_multipath.s2b.eth[2].phyLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 110 TSN_multipath.s2b.eth[2].phyLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 111 TSN_multipath.s2b.eth[2].phyLayer.phyHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 112 TSN_multipath.s2b.eth[2].phyLayer.phyHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 113 TSN_multipath.s2b.eth[2].macLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 114 TSN_multipath.s2b.eth[2].macLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 115 TSN_multipath.s2b.eth[2].macLayer.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 116 TSN_multipath.s2b.eth[2].macLayer.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 117 TSN_multipath.s2b.ethernet.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 118 TSN_multipath.s2b.ethernet.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 119 TSN_multipath.s2b.ethernet.macHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 120 TSN_multipath.s2b.ethernet.macHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 121 TSN_multipath.s2b.ieee8021r.rTagHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 122 TSN_multipath.s2b.ieee8021r.rTagHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 123 TSN_multipath.s2b.ieee8021q.qTagHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 124 TSN_multipath.s2b.ieee8021q.qTagHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 125 TSN_multipath.s2b.bridging.interfaceRelay.learner incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 126 TSN_multipath.s2b.bridging.interfaceRelay.learner outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 127 TSN_multipath.s2b.bridging.streamCoder.decoder incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 128 TSN_multipath.s2b.bridging.streamCoder.decoder outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 129 TSN_multipath.s2b.bridging.streamRelay.merger incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 130 TSN_multipath.s2b.bridging.streamRelay.merger outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 131 TSN_multipath.s2b.bridging.directionReverser.reverser incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 132 TSN_multipath.s2b.bridging.directionReverser.reverser outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 133 TSN_multipath.s2b.bridging.streamIdentifier.identifier incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 134 TSN_multipath.s2b.bridging.streamIdentifier.identifier outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 135 TSN_multipath.s2b.bridging.streamCoder.encoder incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 136 TSN_multipath.s2b.bridging.streamCoder.encoder outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 137 TSN_multipath.s2b.ieee8021q.qTagHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 138 TSN_multipath.s2b.ieee8021q.qTagHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 139 TSN_multipath.s2b.ieee8021r.rTagHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 140 TSN_multipath.s2b.ieee8021r.rTagHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 141 TSN_multipath.s2b.ethernet.macHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 142 TSN_multipath.s2b.ethernet.macHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 143 TSN_multipath.s2b.ethernet.paddingInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 144 TSN_multipath.s2b.ethernet.paddingInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 145 TSN_multipath.s2b.ethernet.fcsInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 146 TSN_multipath.s2b.ethernet.fcsInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 147 TSN_multipath.s2b.eth[1].macLayer.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 148 TSN_multipath.s2b.eth[1].macLayer.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 149 TSN_multipath.s2b.eth[1].macLayer.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 150 TSN_multipath.s2b.eth[1].macLayer.server incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "incoming packet lengths"
+attr unit b
+vector 151 TSN_multipath.s2b.eth[1].macLayer.server outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushed)
+attr title "outgoing packet lengths"
+attr unit b
+vector 152 TSN_multipath.s2b.eth[1].macLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 153 TSN_multipath.s2b.eth[1].macLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 154 TSN_multipath.s2b.eth[1].phyLayer.phyHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 155 TSN_multipath.s2b.eth[1].phyLayer.phyHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 156 TSN_multipath.s2b.eth[1].phyLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 157 TSN_multipath.s2b.eth[1].phyLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 158 TSN_multipath.s2b.eth[1].macLayer.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 159 TSN_multipath.s2b.eth[1].macLayer.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 160 TSN_multipath.s1.eth[0].macLayer.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 161 TSN_multipath.s1.eth[0].macLayer.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 162 TSN_multipath.s1.eth[0].macLayer.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 163 TSN_multipath.s1.eth[0].macLayer.server incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "incoming packet lengths"
+attr unit b
+vector 164 TSN_multipath.s1.eth[0].macLayer.server outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushed)
+attr title "outgoing packet lengths"
+attr unit b
+vector 165 TSN_multipath.s1.eth[0].macLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 166 TSN_multipath.s1.eth[0].macLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 167 TSN_multipath.s1.eth[0].phyLayer.phyHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 168 TSN_multipath.s1.eth[0].phyLayer.phyHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 169 TSN_multipath.s1.eth[0].phyLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 170 TSN_multipath.s1.eth[0].phyLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 171 TSN_multipath.s1.eth[0].macLayer.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 172 TSN_multipath.s1.eth[0].macLayer.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 173 TSN_multipath.s2b.eth[1].phyLayer.transmitter transmissionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(transmissionEnded)
+attr title "transmission time"
+attr unit s
+vector 174 TSN_multipath.s3b.eth[1].phyLayer.receiver receptionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(receptionEnded)
+attr title "reception time"
+attr unit s
+vector 175 TSN_multipath.s3b.eth[1].phyLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 176 TSN_multipath.s3b.eth[1].phyLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 177 TSN_multipath.s3b.eth[1].phyLayer.phyHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 178 TSN_multipath.s3b.eth[1].phyLayer.phyHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 179 TSN_multipath.s3b.eth[1].macLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 180 TSN_multipath.s3b.eth[1].macLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 181 TSN_multipath.s3b.eth[1].macLayer.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 182 TSN_multipath.s3b.eth[1].macLayer.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 183 TSN_multipath.s3b.ethernet.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 184 TSN_multipath.s3b.ethernet.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 185 TSN_multipath.s3b.ethernet.macHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 186 TSN_multipath.s3b.ethernet.macHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 187 TSN_multipath.s3b.ieee8021r.rTagHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 188 TSN_multipath.s3b.ieee8021r.rTagHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 189 TSN_multipath.s3b.ieee8021q.qTagHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 190 TSN_multipath.s3b.ieee8021q.qTagHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 191 TSN_multipath.s3b.bridging.interfaceRelay.learner incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 192 TSN_multipath.s3b.bridging.interfaceRelay.learner outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 193 TSN_multipath.s3b.bridging.streamCoder.decoder incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 194 TSN_multipath.s3b.bridging.streamCoder.decoder outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 195 TSN_multipath.s3b.bridging.streamRelay.merger incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 196 TSN_multipath.s3b.bridging.streamRelay.merger outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 197 TSN_multipath.s3b.bridging.directionReverser.reverser incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 198 TSN_multipath.s3b.bridging.directionReverser.reverser outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 199 TSN_multipath.s3b.bridging.streamIdentifier.identifier incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 200 TSN_multipath.s3b.bridging.streamIdentifier.identifier outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 201 TSN_multipath.s3b.bridging.streamCoder.encoder incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 202 TSN_multipath.s3b.bridging.streamCoder.encoder outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 203 TSN_multipath.s3b.ieee8021q.qTagHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 204 TSN_multipath.s3b.ieee8021q.qTagHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 205 TSN_multipath.s3b.ieee8021r.rTagHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 206 TSN_multipath.s3b.ieee8021r.rTagHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 207 TSN_multipath.s3b.ethernet.macHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 208 TSN_multipath.s3b.ethernet.macHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 209 TSN_multipath.s3b.ethernet.paddingInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 210 TSN_multipath.s3b.ethernet.paddingInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 211 TSN_multipath.s3b.ethernet.fcsInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 212 TSN_multipath.s3b.ethernet.fcsInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 213 TSN_multipath.s3b.eth[0].macLayer.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 214 TSN_multipath.s3b.eth[0].macLayer.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 215 TSN_multipath.s3b.eth[0].macLayer.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 216 TSN_multipath.s3b.eth[0].macLayer.server incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "incoming packet lengths"
+attr unit b
+vector 217 TSN_multipath.s3b.eth[0].macLayer.server outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushed)
+attr title "outgoing packet lengths"
+attr unit b
+vector 218 TSN_multipath.s3b.eth[0].macLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 219 TSN_multipath.s3b.eth[0].macLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 220 TSN_multipath.s3b.eth[0].phyLayer.phyHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 221 TSN_multipath.s3b.eth[0].phyLayer.phyHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 222 TSN_multipath.s3b.eth[0].phyLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 223 TSN_multipath.s3b.eth[0].phyLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 224 TSN_multipath.s3b.eth[0].macLayer.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 225 TSN_multipath.s3b.eth[0].macLayer.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 226 TSN_multipath.s1.eth[0].phyLayer.transmitter transmissionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(transmissionEnded)
+attr title "transmission time"
+attr unit s
+vector 227 TSN_multipath.s2a.eth[2].phyLayer.receiver receptionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(receptionEnded)
+attr title "reception time"
+attr unit s
+vector 228 TSN_multipath.s2a.eth[2].phyLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 229 TSN_multipath.s2a.eth[2].phyLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 230 TSN_multipath.s2a.eth[2].phyLayer.phyHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 231 TSN_multipath.s2a.eth[2].phyLayer.phyHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 232 TSN_multipath.s2a.eth[2].macLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 233 TSN_multipath.s2a.eth[2].macLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 234 TSN_multipath.s2a.eth[2].macLayer.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 235 TSN_multipath.s2a.eth[2].macLayer.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 236 TSN_multipath.s2a.ethernet.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 237 TSN_multipath.s2a.ethernet.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 238 TSN_multipath.s2a.ethernet.macHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 239 TSN_multipath.s2a.ethernet.macHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 240 TSN_multipath.s2a.ieee8021r.rTagHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 241 TSN_multipath.s2a.ieee8021r.rTagHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 242 TSN_multipath.s2a.ieee8021q.qTagHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 243 TSN_multipath.s2a.ieee8021q.qTagHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 244 TSN_multipath.s2a.bridging.interfaceRelay.learner incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 245 TSN_multipath.s2a.bridging.interfaceRelay.learner outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 246 TSN_multipath.s2a.bridging.streamCoder.decoder incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 247 TSN_multipath.s2a.bridging.streamCoder.decoder outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 248 TSN_multipath.s2a.bridging.streamRelay.merger incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 249 TSN_multipath.s2a.bridging.streamRelay.merger outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 250 TSN_multipath.s2a.bridging.directionReverser.reverser incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 251 TSN_multipath.s2a.bridging.directionReverser.reverser outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 252 TSN_multipath.s2a.bridging.streamIdentifier.identifier incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 253 TSN_multipath.s2a.bridging.streamIdentifier.identifier outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 254 TSN_multipath.s2a.bridging.streamCoder.encoder incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 255 TSN_multipath.s2a.bridging.streamCoder.encoder outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 256 TSN_multipath.s2a.ieee8021q.qTagHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 257 TSN_multipath.s2a.ieee8021q.qTagHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 258 TSN_multipath.s2a.ieee8021r.rTagHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 259 TSN_multipath.s2a.ieee8021r.rTagHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 260 TSN_multipath.s2a.ethernet.macHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 261 TSN_multipath.s2a.ethernet.macHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 262 TSN_multipath.s2a.ethernet.paddingInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 263 TSN_multipath.s2a.ethernet.paddingInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 264 TSN_multipath.s2a.ethernet.fcsInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 265 TSN_multipath.s2a.ethernet.fcsInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 266 TSN_multipath.s2a.eth[1].macLayer.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 267 TSN_multipath.s2a.eth[1].macLayer.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 268 TSN_multipath.s2a.eth[1].macLayer.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 269 TSN_multipath.s2a.eth[1].macLayer.server incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "incoming packet lengths"
+attr unit b
+vector 270 TSN_multipath.s2a.eth[1].macLayer.server outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushed)
+attr title "outgoing packet lengths"
+attr unit b
+vector 271 TSN_multipath.s2a.eth[1].macLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 272 TSN_multipath.s2a.eth[1].macLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 273 TSN_multipath.s2a.eth[1].phyLayer.phyHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 274 TSN_multipath.s2a.eth[1].phyLayer.phyHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 275 TSN_multipath.s2a.eth[1].phyLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 276 TSN_multipath.s2a.eth[1].phyLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 277 TSN_multipath.s2a.eth[1].macLayer.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 278 TSN_multipath.s2a.eth[1].macLayer.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 279 TSN_multipath.s3b.eth[0].phyLayer.transmitter transmissionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(transmissionEnded)
+attr title "transmission time"
+attr unit s
+vector 280 TSN_multipath.destination.eth[1].phyLayer.receiver receptionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(receptionEnded)
+attr title "reception time"
+attr unit s
+vector 281 TSN_multipath.destination.eth[1].phyLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 282 TSN_multipath.destination.eth[1].phyLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 283 TSN_multipath.destination.eth[1].phyLayer.phyHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 284 TSN_multipath.destination.eth[1].phyLayer.phyHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 285 TSN_multipath.destination.eth[1].macLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 286 TSN_multipath.destination.eth[1].macLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 287 TSN_multipath.destination.eth[1].macLayer.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 288 TSN_multipath.destination.eth[1].macLayer.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 289 TSN_multipath.destination.ethernet.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 290 TSN_multipath.destination.ethernet.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 291 TSN_multipath.destination.ethernet.macHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 292 TSN_multipath.destination.ethernet.macHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 293 TSN_multipath.destination.ieee8021r.rTagHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 294 TSN_multipath.destination.ieee8021r.rTagHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 295 TSN_multipath.destination.ieee8021q.qTagHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 296 TSN_multipath.destination.ieee8021q.qTagHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 297 TSN_multipath.destination.bridging.streamCoder.decoder incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 298 TSN_multipath.destination.bridging.streamCoder.decoder outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 299 TSN_multipath.destination.bridging.streamRelay.merger incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 300 TSN_multipath.destination.bridging.streamRelay.merger outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 301 TSN_multipath.destination.udp packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 302 TSN_multipath.destination.app[0].io packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 303 TSN_multipath.destination.app[0].sink packetLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushed)
+attr title "packet lengths"
+attr unit b
+vector 304 TSN_multipath.destination.app[0].sink droppedPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropped)
+attr title "dropped packet lengths"
+attr unit b
+vector 305 TSN_multipath.s2a.eth[1].phyLayer.transmitter transmissionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(transmissionEnded)
+attr title "transmission time"
+attr unit s
+vector 306 TSN_multipath.s3a.eth[1].phyLayer.receiver receptionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(receptionEnded)
+attr title "reception time"
+attr unit s
+vector 307 TSN_multipath.s3a.eth[1].phyLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 308 TSN_multipath.s3a.eth[1].phyLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 309 TSN_multipath.s3a.eth[1].phyLayer.phyHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 310 TSN_multipath.s3a.eth[1].phyLayer.phyHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 311 TSN_multipath.s3a.eth[1].macLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 312 TSN_multipath.s3a.eth[1].macLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 313 TSN_multipath.s3a.eth[1].macLayer.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 314 TSN_multipath.s3a.eth[1].macLayer.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 315 TSN_multipath.s3a.ethernet.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 316 TSN_multipath.s3a.ethernet.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 317 TSN_multipath.s3a.ethernet.macHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 318 TSN_multipath.s3a.ethernet.macHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 319 TSN_multipath.s3a.ieee8021r.rTagHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 320 TSN_multipath.s3a.ieee8021r.rTagHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 321 TSN_multipath.s3a.ieee8021q.qTagHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 322 TSN_multipath.s3a.ieee8021q.qTagHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 323 TSN_multipath.s3a.bridging.interfaceRelay.learner incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 324 TSN_multipath.s3a.bridging.interfaceRelay.learner outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 325 TSN_multipath.s3a.bridging.streamCoder.decoder incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 326 TSN_multipath.s3a.bridging.streamCoder.decoder outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 327 TSN_multipath.s3a.bridging.streamRelay.merger incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 328 TSN_multipath.s3a.bridging.streamRelay.merger outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 329 TSN_multipath.s3a.bridging.directionReverser.reverser incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 330 TSN_multipath.s3a.bridging.directionReverser.reverser outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 331 TSN_multipath.s3a.bridging.streamIdentifier.identifier incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 332 TSN_multipath.s3a.bridging.streamIdentifier.identifier outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 333 TSN_multipath.s3a.bridging.streamCoder.encoder incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 334 TSN_multipath.s3a.bridging.streamCoder.encoder outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 335 TSN_multipath.s3a.ieee8021q.qTagHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 336 TSN_multipath.s3a.ieee8021q.qTagHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 337 TSN_multipath.s3a.ieee8021r.rTagHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 338 TSN_multipath.s3a.ieee8021r.rTagHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 339 TSN_multipath.s3a.ethernet.macHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 340 TSN_multipath.s3a.ethernet.macHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 341 TSN_multipath.s3a.ethernet.paddingInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 342 TSN_multipath.s3a.ethernet.paddingInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 343 TSN_multipath.s3a.ethernet.fcsInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 344 TSN_multipath.s3a.ethernet.fcsInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 345 TSN_multipath.s3a.eth[0].macLayer.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 346 TSN_multipath.s3a.eth[0].macLayer.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 347 TSN_multipath.s3a.eth[0].macLayer.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 348 TSN_multipath.s3a.eth[0].macLayer.server incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "incoming packet lengths"
+attr unit b
+vector 349 TSN_multipath.s3a.eth[0].macLayer.server outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushed)
+attr title "outgoing packet lengths"
+attr unit b
+vector 350 TSN_multipath.s3a.eth[0].macLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 351 TSN_multipath.s3a.eth[0].macLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 352 TSN_multipath.s3a.eth[0].phyLayer.phyHeaderInserter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 353 TSN_multipath.s3a.eth[0].phyLayer.phyHeaderInserter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 354 TSN_multipath.s3a.eth[0].phyLayer.outboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 355 TSN_multipath.s3a.eth[0].phyLayer.outboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 356 TSN_multipath.s3a.eth[0].macLayer.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 357 TSN_multipath.s3a.eth[0].macLayer.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 358 TSN_multipath.s2b.eth[2].macLayer.fcsChecker droppedPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropped)
+attr title "dropped packet lengths"
+attr unit b
+vector 359 TSN_multipath.s3a.eth[0].phyLayer.transmitter transmissionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(transmissionEnded)
+attr title "transmission time"
+attr unit s
+vector 360 TSN_multipath.destination.eth[0].phyLayer.receiver receptionTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetDuration(receptionEnded)
+attr title "reception time"
+attr unit s
+vector 361 TSN_multipath.destination.eth[0].phyLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 362 TSN_multipath.destination.eth[0].phyLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 363 TSN_multipath.destination.eth[0].phyLayer.phyHeaderChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 364 TSN_multipath.destination.eth[0].phyLayer.phyHeaderChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 365 TSN_multipath.destination.eth[0].macLayer.inboundEmitter incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 366 TSN_multipath.destination.eth[0].macLayer.inboundEmitter outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 367 TSN_multipath.destination.eth[0].macLayer.fcsChecker incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedIn, packetPulledIn))"
+attr title "incoming packet lengths"
+attr unit b
+vector 368 TSN_multipath.destination.eth[0].macLayer.fcsChecker outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source "packetLength(merge(packetPushedOut, packetPulledOut))"
+attr title "outgoing packet lengths"
+attr unit b
+vector 369 TSN_multipath.destination.app[1].io packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 370 TSN_multipath.destination.app[1].sink packetLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushed)
+attr title "packet lengths"
+attr unit b
+vector 371 TSN_multipath.destination.app[1].sink droppedPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropped)
+attr title "dropped packet lengths"
+attr unit b
+vector 372 TSN_multipath.destination.eth[1].macLayer.fcsChecker droppedPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropped)
+attr title "dropped packet lengths"
+attr unit b
+vector 373 TSN_multipath.destination.app[0].sink meanBitLifeTimePerPacket:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source weightedMeanPerGroup(groupRegionsPerPacket(lifeTimePerRegion(packetPushed)))
+attr title "mean bit life time per packet"
+attr unit s
+vector 374 TSN_multipath.destination.app[0].sink packetJitter:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source jitter(weightedMeanPerGroup(groupRegionsPerPacket(lifeTimePerRegion(packetPushed))))
+attr title "packet jitter"
+attr unit s
+vector 375 TSN_multipath.destination.app[0].sink packetDelayDifferenceToMean:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source differenceToMean(weightedMeanPerGroup(groupRegionsPerPacket(lifeTimePerRegion(packetPushed))))
+attr title "packet delay difference to mean"
+attr unit s
+vector 376 TSN_multipath.destination.app[0].sink packetDelayVariation:vector ETV
+attr recordingmode vector
+attr source stddev(weightedMeanPerGroup(groupRegionsPerPacket(lifeTimePerRegion(packetPushed))))
+attr title "packet delay variation"
+attr unit s
+vector 377 TSN_multipath.s3b.eth[1].macLayer.fcsChecker droppedPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropped)
+attr title "dropped packet lengths"
+attr unit b
+vector 378 TSN_multipath.destination.eth[0].macLayer.fcsChecker droppedPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropped)
+attr title "dropped packet lengths"
+attr unit b
+vector 379 TSN_multipath.destination.app[1].sink meanBitLifeTimePerPacket:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source weightedMeanPerGroup(groupRegionsPerPacket(lifeTimePerRegion(packetPushed)))
+attr title "mean bit life time per packet"
+attr unit s
+vector 380 TSN_multipath.destination.app[1].sink packetJitter:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source jitter(weightedMeanPerGroup(groupRegionsPerPacket(lifeTimePerRegion(packetPushed))))
+attr title "packet jitter"
+attr unit s
+vector 381 TSN_multipath.destination.app[1].sink packetDelayDifferenceToMean:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source differenceToMean(weightedMeanPerGroup(groupRegionsPerPacket(lifeTimePerRegion(packetPushed))))
+attr title "packet delay difference to mean"
+attr unit s
+vector 382 TSN_multipath.destination.app[1].sink packetDelayVariation:vector ETV
+attr recordingmode vector
+attr source stddev(weightedMeanPerGroup(groupRegionsPerPacket(lifeTimePerRegion(packetPushed))))
+attr title "packet delay variation"
+attr unit s
+vector 383 TSN_multipath.s2a.eth[2].macLayer.fcsChecker droppedPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropped)
+attr title "dropped packet lengths"
+attr unit b
+vector 384 TSN_multipath.s1.eth[2].macLayer.fcsChecker droppedPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropped)
+attr title "dropped packet lengths"
+attr unit b
+vector 385 TSN_multipath.s3a.eth[1].macLayer.fcsChecker droppedPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropped)
+attr title "dropped packet lengths"
+attr unit b
+0	104823 890 0 489 0 0.00224576 47 0 1 23 23
+1	105713 9 0 0 0 0 1 0 0 0 0
+2	105722 9 0 0 0 0 1 0 0 0 0
+3	105731 9 0 0 0 0 1 0 0 0 0
+4	105740 416 0 445 0 0.00203973 22 0 1 10 10
+5	106156 373 0 490 0 0.00234597 20 0 1 9 9
+6	106529 18 0 0 0 0 2 0 0 0 0
+7	106547 18 0 0 0 0 2 0 0 0 0
+8	106565 254 0 422 0 0.00193674 14 0 1 6 6
+9	106819 18 0 0 0 0 2 0 0 0 0
+10	106837 229 0 436 0 0.00203791 12 0 1 5 5
+11	107066 20 0 0 0 0 2 0 0 0 0
+12	107086 20 0 0 0 0 2 0 0 0 0
+13	107106 330 0 491 0 0.00234602 17 0 1 8 8
+14	107436 20 0 0 0 0 2 0 0 0 0
+15	107456 270 0 467 0 0.00213999 14 0 1 6 6
+16	107726 20 0 0 0 0 2 0 0 0 0
+17	107746 20 0 0 0 0 2 0 0 0 0
+18	107766 20 0 0 0 0 2 0 0 0 0
+19	107786 195 0 470 0 0.00214004 10 0 9 45 285
+20	107981 10 0 0 0 0 1 0 0 0 0
+21	107991 10 0 0 0 0 1 0 0 0 0
+22	108001 649 0 477 0 0.00220790533 24 9600 9600 230400 2211840000
+23	108650 735 0 482 0 0.002242842304 27 9600 9600 259200 2488320000
+24	109385 649 1 478 0 0.00220790533 24 1200 1200 28800 34560000
+25	110034 735 2 483 0 0.002242842304 27 1200 1200 32400 38880000
+26	110769 1385 9 484 0 0.002242842304 51 1208 1208 61608 74422464
+27	112154 1386 13 486 0 0.002242842304 51 9824 9824 501024 4922059776
+28	113540 1386 13 486 0 0.002242842304 51 9824 9824 501024 4922059776
+29	114926 1386 13 486 0 0.002242842304 51 9824 9824 501024 4922059776
+30	116312 1386 13 486 0 0.002242842304 51 9824 9824 501024 4922059776
+31	117698 1386 13 486 0 0.002242842304 51 9824 9824 501024 4922059776
+32	119084 1386 13 486 0 0.002242842304 51 9856 9856 502656 4954177536
+33	120470 1386 13 486 0 0.002242842304 51 9856 9856 502656 4954177536
+34	121856 1386 13 486 0 0.002242842304 51 9904 9904 505104 5002550016
+35	123242 1386 13 486 0 0.002242842304 51 9904 9904 505104 5002550016
+36	124628 1437 13 486 0 0.002242842304 51 10016 10016 510816 5116333056
+37	126065 1437 13 486 0 0.002242842304 51 10016 10016 510816 5116333056
+38	127502 1437 13 486 0 0.002242842304 51 10016 10016 510816 5116333056
+39	128939 1437 13 486 0 0.002242842304 51 10016 10016 510816 5116333056
+40	130376 1437 13 486 0 0.002242842304 51 10048 10048 512448 5149077504
+41	131813 1437 13 486 0 0.002242842304 51 10048 10048 512448 5149077504
+42	133250 746 13 489 0 0.00224576 23 0 0.001295417695 0.016202227412 1.4704867886015e-05
+43	133996 557 13 489 0 0.00224576 23 10048 10048 231104 2322132992
+44	134553 557 13 489 0 0.00224576 23 10048 10048 231104 2322132992
+45	135110 557 13 489 0 0.00224576 23 10048 10048 231104 2322132992
+46	135667 557 13 489 0 0.00224576 23 10048 10048 231104 2322132992
+47	136224 557 13 489 0 0.00224576 23 10048 10048 231104 2322132992
+48	136781 557 13 489 0 0.00224576 23 10048 10048 231104 2322132992
+49	137338 557 13 489 0 0.00224576 23 10112 10112 232576 2351808512
+50	137895 557 13 489 0 0.00224576 23 10112 10112 232576 2351808512
+51	138452 557 13 489 0 0.00224576 23 10112 10112 232576 2351808512
+52	139009 1739 13 489 0 0.00224576 73 0 29 1118 21872
+53	140748 2027 13 489 0 0.00224576 73 0 291392 11233664 2208247513088
+54	142775 650 30 487 0.00010112 0.0022448 22 0.00010112 0.00010112 0.00222464 2.249555968e-07
+55	143425 656 31 488 0.00010117 0.00224485 22 0.00010112 0.00010112 0.00222464 2.249555968e-07
+56	144081 546 31 488 0.00010117 0.00224485 22 10112 10112 222464 2249555968
+57	144627 546 31 488 0.00010117 0.00224485 22 10112 10112 222464 2249555968
+58	145173 546 31 488 0.00010117 0.00224485 22 10112 10112 222464 2249555968
+59	145719 546 31 488 0.00010117 0.00224485 22 10048 10048 221056 2221170688
+60	146265 546 31 488 0.00010117 0.00224485 22 10048 10048 221056 2221170688
+61	146811 546 31 488 0.00010117 0.00224485 22 10048 10048 221056 2221170688
+62	147357 546 31 488 0.00010117 0.00224485 22 10048 10048 221056 2221170688
+63	147903 471 31 488 0.00010117 0.00224485 19 10048 10048 190912 1918283776
+64	148374 471 31 488 0.00010117 0.00224485 19 10048 10048 190912 1918283776
+65	148845 471 31 488 0.00010117 0.00224485 19 10016 10016 190304 1906084864
+66	149316 471 31 488 0.00010117 0.00224485 19 10016 10016 190304 1906084864
+67	149787 452 31 488 0.00010117 0.00224485 19 9904 9904 188176 1863695104
+68	150239 452 31 488 0.00010117 0.00224485 19 9904 9904 188176 1863695104
+69	150691 452 31 488 0.00010117 0.00224485 19 9856 9856 187264 1845673984
+70	151143 452 31 488 0.00010117 0.00224485 19 9856 9856 187264 1845673984
+71	151595 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+72	152047 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+73	152499 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+74	152951 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+75	153403 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+76	153855 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+77	154307 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+78	154759 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+79	155211 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+80	155663 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+81	156115 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+82	156567 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+83	157019 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+84	157471 452 31 488 0.00010117 0.00224485 19 9824 9824 186656 1833708544
+85	157923 452 31 488 0.00010117 0.00224485 19 9856 9856 187264 1845673984
+86	158375 452 31 488 0.00010117 0.00224485 19 9856 9856 187264 1845673984
+87	158827 452 31 488 0.00010117 0.00224485 19 9904 9904 188176 1863695104
+88	159279 452 31 488 0.00010117 0.00224485 19 9904 9904 188176 1863695104
+89	159731 471 31 488 0.00010117 0.00224485 19 10016 10016 190304 1906084864
+90	160202 471 31 488 0.00010117 0.00224485 19 10016 10016 190304 1906084864
+91	160673 471 31 488 0.00010117 0.00224485 19 10016 10016 190304 1906084864
+92	161144 471 31 488 0.00010117 0.00224485 19 10016 10016 190304 1906084864
+93	161615 471 31 488 0.00010117 0.00224485 19 10048 10048 190912 1918283776
+94	162086 222 31 488 0.00010117 0.00224485 9 10048 10048 90432 908660736
+95	162308 186 31 488 0.00010117 0.00224485 9 0 0 0 0
+96	162494 222 31 488 0.00010117 0.00224485 9 10048 10048 90432 908660736
+97	162716 222 31 488 0.00010117 0.00224485 9 10048 10048 90432 908660736
+98	162938 222 31 488 0.00010117 0.00224485 9 10048 10048 90432 908660736
+99	163160 222 31 488 0.00010117 0.00224485 9 10048 10048 90432 908660736
+100	163382 231 31 488 0.00010117 0.00224485 9 10048 10048 90432 908660736
+101	163613 231 31 488 0.00010117 0.00224485 9 10048 10048 90432 908660736
+102	163844 231 31 488 0.00010117 0.00224485 9 10112 10112 91008 920272896
+103	164075 231 31 488 0.00010117 0.00224485 9 10112 10112 91008 920272896
+104	164306 231 31 488 0.00010117 0.00224485 9 10112 10112 91008 920272896
+105	164537 195 31 488 0.00010117 0.00224485 9 0 0 0 0
+106	164732 195 31 488 0.00010117 0.00224485 9 0 0 0 0
+107	164927 277 43 490 0.00020229 0.00234597 9 0.00010112 0.00010112 0.00091008 9.20272896e-08
+108	165204 274 44 491 0.00020234 0.00234602 9 0.00010112 0.00010112 0.00091008 9.20272896e-08
+109	165478 229 44 491 0.00020234 0.00234602 9 10112 10112 91008 920272896
+110	165707 229 44 491 0.00020234 0.00234602 9 10112 10112 91008 920272896
+111	165936 229 44 491 0.00020234 0.00234602 9 10112 10112 91008 920272896
+112	166165 229 44 491 0.00020234 0.00234602 9 10048 10048 90432 908660736
+113	166394 229 44 491 0.00020234 0.00234602 9 10048 10048 90432 908660736
+114	166623 229 44 491 0.00020234 0.00234602 9 10048 10048 90432 908660736
+115	166852 229 44 491 0.00020234 0.00234602 9 10048 10048 90432 908660736
+116	167081 205 44 491 0.00020234 0.00234602 8 10048 10048 80384 807698432
+117	167286 205 44 491 0.00020234 0.00234602 8 10048 10048 80384 807698432
+118	167491 205 44 491 0.00020234 0.00234602 8 10016 10016 80128 802562048
+119	167696 205 44 491 0.00020234 0.00234602 8 10016 10016 80128 802562048
+120	167901 197 44 491 0.00020234 0.00234602 8 9904 9904 79232 784713728
+121	168098 197 44 491 0.00020234 0.00234602 8 9904 9904 79232 784713728
+122	168295 197 44 491 0.00020234 0.00234602 8 9856 9856 78848 777125888
+123	168492 197 44 491 0.00020234 0.00234602 8 9856 9856 78848 777125888
+124	168689 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+125	168886 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+126	169083 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+127	169280 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+128	169477 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+129	169674 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+130	169871 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+131	170068 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+132	170265 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+133	170462 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+134	170659 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+135	170856 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+136	171053 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+137	171250 197 44 491 0.00020234 0.00234602 8 9824 9824 78592 772087808
+138	171447 197 44 491 0.00020234 0.00234602 8 9856 9856 78848 777125888
+139	171644 197 44 491 0.00020234 0.00234602 8 9856 9856 78848 777125888
+140	171841 197 44 491 0.00020234 0.00234602 8 9904 9904 79232 784713728
+141	172038 197 44 491 0.00020234 0.00234602 8 9904 9904 79232 784713728
+142	172235 205 44 491 0.00020234 0.00234602 8 10016 10016 80128 802562048
+143	172440 205 44 491 0.00020234 0.00234602 8 10016 10016 80128 802562048
+144	172645 205 44 491 0.00020234 0.00234602 8 10016 10016 80128 802562048
+145	172850 205 44 491 0.00020234 0.00234602 8 10016 10016 80128 802562048
+146	173055 205 44 491 0.00020234 0.00234602 8 10048 10048 80384 807698432
+147	173260 205 44 491 0.00020234 0.00234602 8 10048 10048 80384 807698432
+148	173465 173 44 491 0.00020234 0.00234602 8 0 0 0 0
+149	173638 205 44 491 0.00020234 0.00234602 8 10048 10048 80384 807698432
+150	173843 205 44 491 0.00020234 0.00234602 8 10048 10048 80384 807698432
+151	174048 205 44 491 0.00020234 0.00234602 8 10048 10048 80384 807698432
+152	174253 205 44 491 0.00020234 0.00234602 8 10048 10048 80384 807698432
+153	174458 205 44 491 0.00020234 0.00234602 8 10048 10048 80384 807698432
+154	174663 205 44 491 0.00020234 0.00234602 8 10048 10048 80384 807698432
+155	174868 205 44 491 0.00020234 0.00234602 8 10112 10112 80896 818020352
+156	175073 205 44 491 0.00020234 0.00234602 8 10112 10112 80896 818020352
+157	175278 205 44 491 0.00020234 0.00234602 8 10112 10112 80896 818020352
+158	175483 173 44 491 0.00020234 0.00234602 8 0 0 0 0
+159	175656 173 44 491 0.00020234 0.00234602 8 0 0 0 0
+160	175829 259 46 428 0.00020325 0.00193861 10 10048 10048 100480 1009623040
+161	176088 219 46 428 0.00020325 0.00193861 10 0 0 0 0
+162	176307 259 46 428 0.00020325 0.00193861 10 10048 10048 100480 1009623040
+163	176566 259 46 428 0.00020325 0.00193861 10 10048 10048 100480 1009623040
+164	176825 259 46 428 0.00020325 0.00193861 10 10048 10048 100480 1009623040
+165	177084 259 46 428 0.00020325 0.00193861 10 10048 10048 100480 1009623040
+166	177343 259 46 428 0.00020325 0.00193861 10 10048 10048 100480 1009623040
+167	177602 259 46 428 0.00020325 0.00193861 10 10048 10048 100480 1009623040
+168	177861 259 46 428 0.00020325 0.00193861 10 10112 10112 101120 1022525440
+169	178120 259 46 428 0.00020325 0.00193861 10 10112 10112 101120 1022525440
+170	178379 259 46 428 0.00020325 0.00193861 10 10112 10112 101120 1022525440
+171	178638 219 46 428 0.00020325 0.00193861 10 0 0 0 0
+172	178857 219 46 428 0.00020325 0.00193861 10 0 0 0 0
+173	179076 215 64 442 0.00030346 0.00203882 7 0.00010112 0.00010112 0.00070784 7.15767808e-08
+174	179291 216 65 443 0.00030351 0.00203887 7 0.00010112 0.00010112 0.00070784 7.15767808e-08
+175	179507 181 65 443 0.00030351 0.00203887 7 10112 10112 70784 715767808
+176	179688 181 65 443 0.00030351 0.00203887 7 10112 10112 70784 715767808
+177	179869 181 65 443 0.00030351 0.00203887 7 10112 10112 70784 715767808
+178	180050 181 65 443 0.00030351 0.00203887 7 10048 10048 70336 706736128
+179	180231 181 65 443 0.00030351 0.00203887 7 10048 10048 70336 706736128
+180	180412 181 65 443 0.00030351 0.00203887 7 10048 10048 70336 706736128
+181	180593 181 65 443 0.00030351 0.00203887 7 10048 10048 70336 706736128
+182	180774 155 65 443 0.00030351 0.00203887 6 10048 10048 60288 605773824
+183	180929 155 65 443 0.00030351 0.00203887 6 10048 10048 60288 605773824
+184	181084 155 65 443 0.00030351 0.00203887 6 10016 10016 60096 601921536
+185	181239 155 65 443 0.00030351 0.00203887 6 10016 10016 60096 601921536
+186	181394 149 65 443 0.00030351 0.00203887 6 9904 9904 59424 588535296
+187	181543 149 65 443 0.00030351 0.00203887 6 9904 9904 59424 588535296
+188	181692 149 65 443 0.00030351 0.00203887 6 9856 9856 59136 582844416
+189	181841 149 65 443 0.00030351 0.00203887 6 9856 9856 59136 582844416
+190	181990 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+191	182139 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+192	182288 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+193	182437 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+194	182586 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+195	182735 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+196	182884 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+197	183033 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+198	183182 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+199	183331 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+200	183480 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+201	183629 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+202	183778 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+203	183927 149 65 443 0.00030351 0.00203887 6 9824 9824 58944 579065856
+204	184076 149 65 443 0.00030351 0.00203887 6 9856 9856 59136 582844416
+205	184225 149 65 443 0.00030351 0.00203887 6 9856 9856 59136 582844416
+206	184374 149 65 443 0.00030351 0.00203887 6 9904 9904 59424 588535296
+207	184523 149 65 443 0.00030351 0.00203887 6 9904 9904 59424 588535296
+208	184672 155 65 443 0.00030351 0.00203887 6 10016 10016 60096 601921536
+209	184827 155 65 443 0.00030351 0.00203887 6 10016 10016 60096 601921536
+210	184982 155 65 443 0.00030351 0.00203887 6 10016 10016 60096 601921536
+211	185137 155 65 443 0.00030351 0.00203887 6 10016 10016 60096 601921536
+212	185292 155 65 443 0.00030351 0.00203887 6 10048 10048 60288 605773824
+213	185447 155 65 443 0.00030351 0.00203887 6 10048 10048 60288 605773824
+214	185602 131 65 443 0.00030351 0.00203887 6 0 0 0 0
+215	185733 155 65 443 0.00030351 0.00203887 6 10048 10048 60288 605773824
+216	185888 155 65 443 0.00030351 0.00203887 6 10048 10048 60288 605773824
+217	186043 155 65 443 0.00030351 0.00203887 6 10048 10048 60288 605773824
+218	186198 155 65 443 0.00030351 0.00203887 6 10048 10048 60288 605773824
+219	186353 155 65 443 0.00030351 0.00203887 6 10048 10048 60288 605773824
+220	186508 155 65 443 0.00030351 0.00203887 6 10048 10048 60288 605773824
+221	186663 155 65 443 0.00030351 0.00203887 6 10112 10112 60672 613515264
+222	186818 155 65 443 0.00030351 0.00203887 6 10112 10112 60672 613515264
+223	186973 155 65 443 0.00030351 0.00203887 6 10112 10112 60672 613515264
+224	187128 131 65 443 0.00030351 0.00203887 6 0 0 0 0
+225	187259 131 65 443 0.00030351 0.00203887 6 0 0 0 0
+226	187390 309 66 445 0.00030437 0.00203973 10 0.00010112 0.00010112 0.0010112 1.02252544e-07
+227	187699 308 67 446 0.00030442 0.00203978 10 0.00010112 0.00010112 0.0010112 1.02252544e-07
+228	188007 258 67 446 0.00030442 0.00203978 10 10112 10112 101120 1022525440
+229	188265 258 67 446 0.00030442 0.00203978 10 10112 10112 101120 1022525440
+230	188523 258 67 446 0.00030442 0.00203978 10 10112 10112 101120 1022525440
+231	188781 258 67 446 0.00030442 0.00203978 10 10048 10048 100480 1009623040
+232	189039 258 67 446 0.00030442 0.00203978 10 10048 10048 100480 1009623040
+233	189297 258 67 446 0.00030442 0.00203978 10 10048 10048 100480 1009623040
+234	189555 258 67 446 0.00030442 0.00203978 10 10048 10048 100480 1009623040
+235	189813 154 67 407 0.00030442 0.00183562 6 10048 10048 60288 605773824
+236	189967 154 67 407 0.00030442 0.00183562 6 10048 10048 60288 605773824
+237	190121 154 67 407 0.00030442 0.00183562 6 10016 10016 60096 601921536
+238	190275 154 67 407 0.00030442 0.00183562 6 10016 10016 60096 601921536
+239	190429 148 67 407 0.00030442 0.00183562 6 9904 9904 59424 588535296
+240	190577 148 67 407 0.00030442 0.00183562 6 9904 9904 59424 588535296
+241	190725 148 67 407 0.00030442 0.00183562 6 9856 9856 59136 582844416
+242	190873 148 67 407 0.00030442 0.00183562 6 9856 9856 59136 582844416
+243	191021 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+244	191169 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+245	191317 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+246	191465 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+247	191613 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+248	191761 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+249	191909 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+250	192057 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+251	192205 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+252	192353 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+253	192501 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+254	192649 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+255	192797 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+256	192945 148 67 407 0.00030442 0.00183562 6 9824 9824 58944 579065856
+257	193093 148 67 407 0.00030442 0.00183562 6 9856 9856 59136 582844416
+258	193241 148 67 407 0.00030442 0.00183562 6 9856 9856 59136 582844416
+259	193389 148 67 407 0.00030442 0.00183562 6 9904 9904 59424 588535296
+260	193537 148 67 407 0.00030442 0.00183562 6 9904 9904 59424 588535296
+261	193685 154 67 407 0.00030442 0.00183562 6 10016 10016 60096 601921536
+262	193839 154 67 407 0.00030442 0.00183562 6 10016 10016 60096 601921536
+263	193993 154 67 407 0.00030442 0.00183562 6 10016 10016 60096 601921536
+264	194147 154 67 407 0.00030442 0.00183562 6 10016 10016 60096 601921536
+265	194301 154 67 407 0.00030442 0.00183562 6 10048 10048 60288 605773824
+266	194455 154 67 407 0.00030442 0.00183562 6 10048 10048 60288 605773824
+267	194609 130 67 407 0.00030442 0.00183562 6 0 0 0 0
+268	194739 154 67 407 0.00030442 0.00183562 6 10048 10048 60288 605773824
+269	194893 154 67 407 0.00030442 0.00183562 6 10048 10048 60288 605773824
+270	195047 154 67 407 0.00030442 0.00183562 6 10048 10048 60288 605773824
+271	195201 154 67 407 0.00030442 0.00183562 6 10048 10048 60288 605773824
+272	195355 154 67 407 0.00030442 0.00183562 6 10048 10048 60288 605773824
+273	195509 154 67 407 0.00030442 0.00183562 6 10048 10048 60288 605773824
+274	195663 154 67 407 0.00030442 0.00183562 6 10112 10112 60672 613515264
+275	195817 154 67 407 0.00030442 0.00183562 6 10112 10112 60672 613515264
+276	195971 154 67 407 0.00030442 0.00183562 6 10112 10112 60672 613515264
+277	196125 130 67 407 0.00030442 0.00183562 6 0 0 0 0
+278	196255 130 67 407 0.00030442 0.00183562 6 0 0 0 0
+279	196385 185 83 467 0.00040463 0.00213999 6 0.00010112 0.00010112 0.00060672 6.13515264e-08
+280	196570 183 84 468 0.00040468 0.00214004 6 0.00010112 0.00010112 0.00060672 6.13515264e-08
+281	196753 153 84 468 0.00040468 0.00214004 6 10112 10112 60672 613515264
+282	196906 153 84 468 0.00040468 0.00214004 6 10112 10112 60672 613515264
+283	197059 153 84 468 0.00040468 0.00214004 6 10112 10112 60672 613515264
+284	197212 153 84 468 0.00040468 0.00214004 6 10048 10048 60288 605773824
+285	197365 153 84 468 0.00040468 0.00214004 6 10048 10048 60288 605773824
+286	197518 153 84 468 0.00040468 0.00214004 6 10048 10048 60288 605773824
+287	197671 153 84 468 0.00040468 0.00214004 6 10048 10048 60288 605773824
+288	197824 127 84 468 0.00040468 0.00214004 5 10048 10048 50240 504811520
+289	197951 230 84 468 0.00040468 0.00214004 9 10048 10048 90432 908660736
+290	198181 230 84 468 0.00040468 0.00214004 9 10016 10016 90144 902882304
+291	198411 230 84 468 0.00040468 0.00214004 9 10016 10016 90144 902882304
+292	198641 221 84 468 0.00040468 0.00214004 9 9904 9904 89136 882802944
+293	198862 221 84 468 0.00040468 0.00214004 9 9904 9904 89136 882802944
+294	199083 221 84 468 0.00040468 0.00214004 9 9856 9856 88704 874266624
+295	199304 221 84 468 0.00040468 0.00214004 9 9856 9856 88704 874266624
+296	199525 221 84 468 0.00040468 0.00214004 9 9824 9824 88416 868598784
+297	199746 221 84 468 0.00040468 0.00214004 9 9824 9824 88416 868598784
+298	199967 221 84 468 0.00040468 0.00214004 9 9824 9824 88416 868598784
+299	200188 221 84 468 0.00040468 0.00214004 9 9824 9824 88416 868598784
+300	200409 221 84 468 0.00040468 0.00214004 9 9824 9824 88416 868598784
+301	200630 221 86 470 0.00040468 0.00214004 9 1208 1208 10872 13133376
+302	200851 122 87 471 0.00040468 0.00214004 5 1200 1200 6000 7200000
+303	200973 122 88 472 0.00040468 0.00214004 5 9600 9600 48000 460800000
+304	201095 122 88 472 0.00040468 0.00214004 5 9600 9600 48000 460800000
+305	201217 184 90 422 0.00040554 0.00193674 6 0.00010112 0.00010112 0.00060672 6.13515264e-08
+306	201401 185 91 423 0.00040559 0.00193679 6 0.00010112 0.00010112 0.00060672 6.13515264e-08
+307	201586 155 91 423 0.00040559 0.00193679 6 10112 10112 60672 613515264
+308	201741 155 91 423 0.00040559 0.00193679 6 10112 10112 60672 613515264
+309	201896 155 91 423 0.00040559 0.00193679 6 10112 10112 60672 613515264
+310	202051 155 91 423 0.00040559 0.00193679 6 10048 10048 60288 605773824
+311	202206 155 91 423 0.00040559 0.00193679 6 10048 10048 60288 605773824
+312	202361 155 91 423 0.00040559 0.00193679 6 10048 10048 60288 605773824
+313	202516 155 91 423 0.00040559 0.00193679 6 10048 10048 60288 605773824
+314	202671 129 91 423 0.00040559 0.00193679 5 10048 10048 50240 504811520
+315	202800 129 91 423 0.00040559 0.00193679 5 10048 10048 50240 504811520
+316	202929 129 91 423 0.00040559 0.00193679 5 10016 10016 50080 501601280
+317	203058 129 91 423 0.00040559 0.00193679 5 10016 10016 50080 501601280
+318	203187 124 91 423 0.00040559 0.00193679 5 9904 9904 49520 490446080
+319	203311 124 91 423 0.00040559 0.00193679 5 9904 9904 49520 490446080
+320	203435 124 91 423 0.00040559 0.00193679 5 9856 9856 49280 485703680
+321	203559 124 91 423 0.00040559 0.00193679 5 9856 9856 49280 485703680
+322	203683 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+323	203807 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+324	203931 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+325	204055 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+326	204179 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+327	204303 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+328	204427 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+329	204551 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+330	204675 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+331	204799 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+332	204923 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+333	205047 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+334	205171 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+335	205295 124 91 423 0.00040559 0.00193679 5 9824 9824 49120 482554880
+336	205419 124 91 423 0.00040559 0.00193679 5 9856 9856 49280 485703680
+337	205543 124 91 423 0.00040559 0.00193679 5 9856 9856 49280 485703680
+338	205667 124 91 423 0.00040559 0.00193679 5 9904 9904 49520 490446080
+339	205791 124 91 423 0.00040559 0.00193679 5 9904 9904 49520 490446080
+340	205915 129 91 423 0.00040559 0.00193679 5 10016 10016 50080 501601280
+341	206044 129 91 423 0.00040559 0.00193679 5 10016 10016 50080 501601280
+342	206173 129 91 423 0.00040559 0.00193679 5 10016 10016 50080 501601280
+343	206302 129 91 423 0.00040559 0.00193679 5 10016 10016 50080 501601280
+344	206431 129 91 423 0.00040559 0.00193679 5 10048 10048 50240 504811520
+345	206560 129 91 423 0.00040559 0.00193679 5 10048 10048 50240 504811520
+346	206689 109 91 423 0.00040559 0.00193679 5 0 0 0 0
+347	206798 129 91 423 0.00040559 0.00193679 5 10048 10048 50240 504811520
+348	206927 129 91 423 0.00040559 0.00193679 5 10048 10048 50240 504811520
+349	207056 129 91 423 0.00040559 0.00193679 5 10048 10048 50240 504811520
+350	207185 129 91 423 0.00040559 0.00193679 5 10048 10048 50240 504811520
+351	207314 129 91 423 0.00040559 0.00193679 5 10048 10048 50240 504811520
+352	207443 129 91 423 0.00040559 0.00193679 5 10048 10048 50240 504811520
+353	207572 129 91 423 0.00040559 0.00193679 5 10112 10112 50560 511262720
+354	207701 129 91 423 0.00040559 0.00193679 5 10112 10112 50560 511262720
+355	207830 129 91 423 0.00040559 0.00193679 5 10112 10112 50560 511262720
+356	207959 109 91 423 0.00040559 0.00193679 5 0 0 0 0
+357	208068 109 91 423 0.00040559 0.00193679 5 0 0 0 0
+358	208177 24 94 94 0.0004065 0.0004065 1 10048 10048 10048 100962304
+359	208201 155 110 436 0.00050671 0.00203791 5 0.00010112 0.00010112 0.0005056 5.1126272e-08
+360	208356 154 111 437 0.00050676 0.00203796 5 0.00010112 0.00010112 0.0005056 5.1126272e-08
+361	208510 129 111 437 0.00050676 0.00203796 5 10112 10112 50560 511262720
+362	208639 129 111 437 0.00050676 0.00203796 5 10112 10112 50560 511262720
+363	208768 129 111 437 0.00050676 0.00203796 5 10112 10112 50560 511262720
+364	208897 129 111 437 0.00050676 0.00203796 5 10048 10048 50240 504811520
+365	209026 129 111 437 0.00050676 0.00203796 5 10048 10048 50240 504811520
+366	209155 129 111 437 0.00050676 0.00203796 5 10048 10048 50240 504811520
+367	209284 129 111 437 0.00050676 0.00203796 5 10048 10048 50240 504811520
+368	209413 103 111 437 0.00050676 0.00203796 4 10048 10048 40192 403849216
+369	209516 99 114 440 0.00050676 0.00203796 4 1200 1200 4800 5760000
+370	209615 99 115 441 0.00050676 0.00203796 4 9600 9600 38400 368640000
+371	209714 99 115 441 0.00050676 0.00203796 4 9600 9600 38400 368640000
+372	209813 26 154 154 0.00071092 0.00071092 1 10048 10048 10048 100962304
+373	209839 134 180 472 0.00040468 0.00152756 4 0.00040468 0.001137205217 0.003151010114 2.7583818191906e-06
+374	209973 134 180 472 0.00040468 0.00152756 4 0.000116092585 0.00040468 0.001137205217 3.6949857287246e-07
+375	210107 129 180 472 0.00040468 0.00152756 4 -0.0003494526885 0 -0.0007117112085 1.8794133563185e-07
+376	210236 140 180 472 0.00040468 0.00152756 4 0 0.00026275734155715 0.00062804856783053 1.3603532997644e-07
+377	210376 26 182 182 0.00081391 0.00081391 1 10048 10048 10048 100962304
+378	210402 26 221 221 0.00101716 0.00101716 1 10048 10048 10048 100962304
+379	210428 99 278 441 0.00050676 0.0013234 3 0.00050676 0.00102338006 0.002490578641 2.2265547126789e-06
+380	210527 99 278 441 0.00050676 0.0013234 3 6.2941479e-05 0.00050676 0.00102338006 4.6659158223688e-07
+381	210626 99 278 441 0.00050676 0.0013234 3 -0.0002268392905 0 -0.00042002647016667 8.8777350102104e-08
+382	210725 101 278 441 0.00050676 0.0013234 3 0 0.00023014060652858 0.00045697993046606 1.0442077765776e-07
+383	210826 104 283 446 0.00122314 0.00203978 4 10048 10048 40192 403849216
+384	210930 78 328 475 0.00142821 0.00214277 3 10048 10048 30144 302886912
+385	211008 26 358 358 0.00152847 0.00152847 1 10048 10048 10048 100962304
+
