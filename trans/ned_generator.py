@@ -24,20 +24,7 @@ class Link():
         self.src = src
         self.dst = dst
         self.cap = cap
-
-class Type1_Stream():
-    def __init__(self, src, dst, util):
-        self.src = src
-        self.dst = dst
-        self.util = util
-
-class Type2_Stream():
-    def __init__(self, src, dst, util, num_trans):
-        self.src = src
-        self.dst = dst
-        self.util = util
-        self.num_trans = num_trans
-
+        
 class Topology():
     def __init__(self):
         self.input_file = ""
@@ -75,13 +62,13 @@ class Topology():
             self.type1_num = int(input_file.readline().strip())
             for _ in range(self.type1_num):
                 src, dst, util = input_file.readline().strip().split(" ")
-                self.type1.append(Type1_Stream(int(src), int(dst), float(util)))
+                self.type1.append((int(src), int(dst), float(util)))
 
             # parse expected utilizations: type2 (util, edge constraint)
             self.type2_num = int(input_file.readline().strip())
             for _ in range(self.type2_num):
                 src, dst, util, edge_constraint = input_file.readline().strip().split(" ")
-                self.type2.append(Type2_Stream(int(src), int(dst), float(util), int(edge_constraint)))
+                self.type2.append((int(src), int(dst), float(util), int(edge_constraint)))
 
             # parse constraint 2: max number of transfer
             self.trans_num = int(input_file.readline().strip())
@@ -95,10 +82,12 @@ class Topology():
         # submodule (host & switch)
         print("\tsubmodules:\n")
         for device in self.hosts:
-            submodule = "\t\t{}: TsnDevice {\n".format(device.name)
+            submodule = "\t\t{}".format(device.name)
+            submodule += ": TsnDevice {\n"
             submodule += "\t\t\t@display(\"p=300,200\");\n"
             submodule += "\t\t}\n"
-            submodule += "\t\t{}: LocalTsnSwitch {\n".format(device.switch_name)
+            submodule += "\t\t{}".format(device.switch_name)
+            submodule += ": LocalTsnSwitch {\n"
             submodule += "\t\t\t@display(\"p=300,200\");\n" 
             submodule += "\t\t}\n"
             print(submodule)
@@ -106,10 +95,15 @@ class Topology():
         # connection (edge)
         print("\tconnections:\n")
         for device in self.hosts:
-            print("{}.ethg++ <--> EthernetLink <--> {}.ethg++".format(device.name, device.switch_name))
+            print("\t\t{}.ethg++ <--> EthernetLink <--> {}.ethg++".format(device.name, device.switch_name))
 
         for edge in self.edges:
-            print("{}.ethg++ --> EthernetLink --> {}.ethg++".format(self.hosts[edge.src].switch_name, self.hosts[edge.dst].switch_name))
+            print("\t\t{}.ethg++ --> EthernetLink --> {}.ethg++".format(self.hosts[edge.src].switch_name, self.hosts[edge.dst].switch_name))
 
         # end
         print("}")
+
+if __name__ == "__main__":
+    T = Topology()
+    T.fromFie("../cycle/input/5.in")
+    T.genNed()

@@ -20,6 +20,11 @@ import inet.node.ethernet.EthernetLink;
 import inet.node.tsn.TsnDevice;
 import inet.node.tsn.TsnSwitch;
 
+channel Eth80M extends EthernetLink
+{
+    datarate = 80Mbps;
+}
+
 module LocalTsnSwitch extends TsnSwitch
 {
     @defaultStatistic("gateStateChanged:vector"; module="eth[0].macLayer.queue.gate[0]");
