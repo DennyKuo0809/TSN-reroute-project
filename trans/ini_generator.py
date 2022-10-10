@@ -16,7 +16,7 @@ header += "*.macForwardingTableConfigurator.typename = \"\"\n"
 #################################################
 header += "\n"
 header += "# enable frame replication and elimination\n"
-header += "*.*.hasStreamRedundancy = true\"\n"
+header += "*.*.hasStreamRedundancy = true\n"
 
 #########################################
 #   enable stream policing in layer 2   #
@@ -143,24 +143,26 @@ class Route():
         print("\n# seamless stream redundancy configuration")
         print("*.streamRedundancyConfigurator.configuration = [\n", end="")
         for i, p in enumerate(self.type1_route):
-            buf = "{"
+            buf = "\t{"
             buf += f"name: \"S1-{i}\", packetFilter: \"*-type1_{i}-*\", source: \"{self.topology.hosts[p[0]].name}\", destination: \"{self.topology.hosts[p[-1]].name}\","
-            buf += f"trees: [[[{self.topology.hosts[p[0]].name}"
+            buf += f"trees: [[[\"{self.topology.hosts[p[0]].name}\", \"{self.topology.hosts[p[0]].switch_name}\""
             for j in p[1:-1]:
                 buf += f", \"{self.topology.hosts[j].switch_name}\""
-            buf += f", \"{self.topology.hosts[p[-1]].name}\"]]]"
+            buf += f", \"{self.topology.hosts[p[-1]].switch_name}\", \"{self.topology.hosts[p[-1]].name}\"]]]"
             buf += "},"
             print(buf)
         for i, p in enumerate(self.type2_route):
-            buf = "{"
+            buf = "\t{"
             buf += f"name: \"S2-{i}\", packetFilter: \"*-type2_{i}-*\", source: \"{self.topology.hosts[p[0]].name}\", destination: \"{self.topology.hosts[p[-1]].name}\","
-            buf += f"trees: [[[{self.topology.hosts[p[0]].name}"
+            buf += f"trees: [[[\"{self.topology.hosts[p[0]].name}\", \"{self.topology.hosts[p[0]].switch_name}\""
             for j in p[1:-1]:
                 buf += f", \"{self.topology.hosts[j].switch_name}\""
-            buf += f", \"{self.topology.hosts[p[-1]].name}\"]]]"
-            buf += "},"
+            buf += f",\"{self.topology.hosts[p[-1]].switch_name}\" ,\"{self.topology.hosts[p[-1]].name}\"]]]"
+            if i == len(self.type2_route)-1:
+            	buf += "}]"
+            else:
+            	buf += "},"
             print(buf)
-        print("]\n")
 
 
         '''

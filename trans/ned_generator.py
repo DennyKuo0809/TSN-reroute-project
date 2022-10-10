@@ -1,5 +1,5 @@
 
-ned_header = "package inet.tutorials.configurator.demo_test;\n"
+ned_header = "package inet.tutorials.demo_test;\n"
 ned_header += "import inet.networks.base.TsnNetworkBase;\n"
 ned_header += "import inet.node.ethernet.EthernetLink;\n"
 ned_header += "import inet.node.tsn.TsnDevice;\n"
@@ -95,15 +95,15 @@ class Topology():
         # connection (edge)
         print("\tconnections:\n")
         for device in self.hosts:
-            print("\t\t{}.ethg++ <--> EthernetLink <--> {}.ethg++".format(device.name, device.switch_name))
+            print("\t\t{}.ethg++ <--> EthernetLink <--> {}.ethg++;".format(device.name, device.switch_name))
 
         for edge in self.edges:
-            print("\t\t{}.ethg++ --> EthernetLink --> {}.ethg++".format(self.hosts[edge.src].switch_name, self.hosts[edge.dst].switch_name))
+            print("\t\t{}.ethg++ <--> EthernetLink <--> {}.ethg++;".format(self.hosts[edge.src].switch_name, self.hosts[edge.dst].switch_name))
 
         # end
         print("}")
 
 if __name__ == "__main__":
     T = Topology()
-    T.fromFie("../cycle/input/5.in")
+    T.fromFie("5.in")
     T.genNed()
