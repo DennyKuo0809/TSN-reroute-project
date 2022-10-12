@@ -36,3 +36,6 @@ $ opp_scavetool x {-f filter} -F CSV-R -o {output.csv}
 
 #### Step 6: analysis the result
 ### Still in progress
+- keep in mind
+  - TSN_multipath.destination.app[0].sink
+  - packetDelayDifferenceToMean:vector
