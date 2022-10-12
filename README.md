@@ -39,5 +39,5 @@ $ opp_scavetool x {-f filter} -F CSV-R -o {path to output.csv}
 - keep in mind
   - maybe : $ python3.9 {analysis.py} {path to csv} 
   - TSN_multipath.destination.app[0].sink
-  - packetDelayDifferenceToMean:vector
-  - https://doc.omnetpp.org/inet/api-current/neddoc/inet.applications.udpapp.UdpSink.html
+  - meanBitLifeTimePerPacket:histogram
+  - https://inet.omnetpp.org/docs/showcases/measurement/endtoenddelay/doc/index.html
