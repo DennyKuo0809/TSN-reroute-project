@@ -16,8 +16,8 @@ $ python3.9 cycles/johnson_modify.py {input file} {constant}
 
 #### Step 3: generate ned & ini file
 ```sh=
-$ python3.9 src/main.py > {output.ini}
-$ python3.9 src/ned_generator.py > {output.ned}
+$ python3.9 src/main.py > {path to output.ini}
+$ python3.9 src/ned_generator.py > {path to output.ned}
 ```
 
 #### Step 4: run simulation (in command line)
@@ -31,11 +31,12 @@ $ inet {path to ini} -u Cmdenv
 
 #### Step 5: export the result files to csv foramt
 ```sh=
-$ opp_scavetool x {-f filter} -F CSV-R -o {output.csv}
+$ opp_scavetool x {-f filter} -F CSV-R -o {path to output.csv}
 ```
 
 #### Step 6: analysis the result
 ### Still in progress
 - keep in mind
+  - maybe : $ python3.9 {analysis.py} {path to csv} 
   - TSN_multipath.destination.app[0].sink
   - packetDelayDifferenceToMean:vector
