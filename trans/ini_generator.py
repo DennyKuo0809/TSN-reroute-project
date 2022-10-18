@@ -73,7 +73,7 @@ class Route():
                             "destport": self.port[dst],
                             "dst": self.topology.hosts[dst].name,
                             "util": util,
-                            "type": int(1),
+                            "type": int(2),
                             "flow-id" : int(id)}
             new_dst_app = {"role": "recv", 
                             "localport": self.port[dst]}
@@ -123,17 +123,28 @@ class Route():
             for j, app in enumerate(self.app[i]):
                 buf = "\n"
                 if app['role'] == "send":
-                    buf += f"*.{name}.app[{j}].typename = \"UdpSourceApp\"\n"
-                    buf += f"*.{name}.app[{j}].io.destAddress = \"{app['dst']}\"\n"
-                    buf += f"*.{name}.app[{j}].source.packetNameFormat = \"%M-%m-%c\"\n"
-                    buf += f"*.{name}.app[{j}].source.displayStringTextFormat = \"sent %p pk (%l)\"\n"
-                    buf += f"*.{name}.app[{j}].source.packetLength = {int(1000*app['util'])}B\n"
-                    buf += f"*.{name}.app[{j}].source.productionInterval = 100us\n"
-                    buf += f"*.{name}.app[{j}].display-name = \"type{app['type']}_{app['flow-id']}\"\n"
-                    buf += f"*.{name}.app[{j}].io.destPort = {app['destport']}\n"
+                    if app['type'] == 1:
+                        buf += f"*.{name}.app[{j}].typename = \"UdpSourceApp\"\n"
+                        buf += f"*.{name}.app[{j}].io.destAddress = \"{app['dst']}\"\n"
+                        buf += f"*.{name}.app[{j}].source.packetNameFormat = \"%M-%m-%c\"\n"
+                        buf += f"*.{name}.app[{j}].source.displayStringTextFormat = \"sent %p pk (%l)\"\n"
+                        buf += f"*.{name}.app[{j}].source.packetLength = {int(1000*app['util'])}B\n"
+                        buf += f"*.{name}.app[{j}].source.productionInterval = 100us\n"
+                        buf += f"*.{name}.app[{j}].display-name = \"type{app['type']}_{app['flow-id']}\"\n"
+                        buf += f"*.{name}.app[{j}].io.destPort = {app['destport']}\n"
+                    elif app['type'] == 2:
+                        buf += f"*.{name}.app[{j}].typename = \"UdpBasicApp\"\n"
+                        buf += f"*.{name}.app[{j}].destAddresses = \"{app['dst']}\"\n"
+                        buf += f"*.{name}.app[{j}].source.packetNameFormat = \"%M-%m-%c\"\n"
+                        buf += f"*.{name}.app[{j}].source.displayStringTextFormat = \"sent %p pk (%l)\"\n"
+                        buf += f"*.{name}.app[{j}].messageLength = {int(1000*app['util'])}B\n"
+                        buf += f"*.{name}.app[{j}].sendInterval = 100us\n"
+                        buf += f"*.{name}.app[{j}].startTime = 1ms\n"
+                        buf += f"*.{name}.app[{j}].display-name = \"type{app['type']}_{app['flow-id']}\"\n"
+                        buf += f"*.{name}.app[{j}].destPort = {app['destport']}\n"
                 else:
                     buf += f"*.{name}.app[{j}].typename = \"UdpSinkApp\"\n"
-                    buf += f"*.{name}.app[{j}].io.localPort = {app['localport']}"
+                    buf += f"*.{name}.app[{j}].io.localPort = {app['localport']}\n"
                 print(buf, end="")
 
         #####################
@@ -175,6 +186,6 @@ if __name__ == "__main__":
     T.fromFie("5.in")
     R = Route(T)
     R.parseRouting("Type1-route.pickle", "Type2-route.pickle")
-    print(f"type1 routing : \n{R.type1_route}\ntype2 routing: \n{R.type2_route}")
+    # print(f"type1 routing : \n{R.type1_route}\ntype2 routing: \n{R.type2_route}")
     R.parseStream()
     R.genINI()
