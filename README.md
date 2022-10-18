@@ -16,7 +16,7 @@ $ python3.9 cycles/johnson_modify.py {input file} {constant}
 
 #### Step 3: generate ned & ini file
 ```sh=
-$ python3.9 src/main.py > {path to output.ini}
+$ python3.9 src/ini_generator.py > {path to output.ini}
 $ python3.9 src/ned_generator.py > {path to output.ned}
 ```
 
