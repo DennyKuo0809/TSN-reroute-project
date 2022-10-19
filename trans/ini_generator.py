@@ -1,5 +1,6 @@
 import enum
 import ned_generator
+import sys
 import pickle
 
 header = "[General]\n"
@@ -187,7 +188,7 @@ if __name__ == "__main__":
     T = ned_generator.Topology()
     T.fromFie("5.in")
     R = Route(T)
-    R.parseRouting("Type1-route.pickle", "Type2-route.pickle")
+    R.parseRouting(sys.argv[1], "Type2-route.pickle")
     # print(f"type1 routing : \n{R.type1_route}\ntype2 routing: \n{R.type2_route}")
     R.parseStream()
     R.genINI()
