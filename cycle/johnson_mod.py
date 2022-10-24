@@ -248,26 +248,32 @@ def cycleSelection(vertex_num: int, cycles: List[List[int]]):
     selected = set([0])
 
     while unCover and len(list(selected)) < vertex_num:
+        print(unCover)
         coverMost_idx = -1
         coverMost_num = -1
         for i, c in enumerate(cycles):
             if i == 0 or i in selected:
                 continue
             num_cover = len(list(unCover & set(c)))
+            print(f"{unCover} & {c} num : {num_cover}")
             if num_cover >= coverMost_num:
                 coverMost_idx = i
                 coverMost_num = num_cover
-        if num_cover == 0:
+        if coverMost_num <= 0:
             break
-        common_node = list(set(cycles[coverMost_idx]) & set(result))[0]
+        common_node = list(set(cycles[coverMost_idx]) & set(result))[1]
         unCover = unCover - set(cycles[coverMost_idx])
         selected.update([coverMost_idx])
         # print(common_node)
         print(result, "\n", cycles[coverMost_idx])
-        result = result[:result.index(common_node)] + \
-            cycles[coverMost_idx][cycles[coverMost_idx].index(common_node):] + \
-                cycles[coverMost_idx][1:cycles[coverMost_idx].index(common_node)] + \
-                    result[result.index(common_node) : ]
+        print(f"{result[:result.index(common_node)]} {cycles[coverMost_idx][cycles[coverMost_idx].index(common_node):]} {cycles[coverMost_idx][1:cycles[coverMost_idx].index(common_node)]} {result[result.index(common_node) : ]}")
+        
+        result_ = result[:-1]
+        select_cycle = cycles[coverMost_idx][:-1]
+        result = result_[:result_.index(common_node) + 1] + \
+            select_cycle[select_cycle.index(common_node)+1:] + \
+                select_cycle[1:select_cycle.index(common_node)] + \
+                    result_[result_.index(common_node) : ] + [result[0]]
         # print(result)
     return result
 
