@@ -73,35 +73,35 @@ class Topology():
             # parse constraint 2: max number of transfer
             self.trans_num = int(input_file.readline().strip())
 
-    def genNed(self, file_name=""):
+    def genNed(self, file_name):
         # if file_name were not specified, output the result to stdout
-        
-        # header
-        print(ned_header)
+        with open(file_name, "w") as out_f:
+            # header
+            print(ned_header, file=out_f)
 
-        # submodule (host & switch)
-        print("\tsubmodules:\n")
-        for device in self.hosts:
-            submodule = "\t\t{}".format(device.name)
-            submodule += ": TsnDevice {\n"
-            submodule += "\t\t\t@display(\"p=300,200\");\n"
-            submodule += "\t\t}\n"
-            submodule += "\t\t{}".format(device.switch_name)
-            submodule += ": LocalTsnSwitch {\n"
-            submodule += "\t\t\t@display(\"p=300,200\");\n" 
-            submodule += "\t\t}\n"
-            print(submodule)
+            # submodule (host & switch)
+            print("\tsubmodules:\n", file=out_f)
+            for device in self.hosts:
+                submodule = "\t\t{}".format(device.name)
+                submodule += ": TsnDevice {\n"
+                submodule += "\t\t\t@display(\"p=300,200\");\n"
+                submodule += "\t\t}\n"
+                submodule += "\t\t{}".format(device.switch_name)
+                submodule += ": LocalTsnSwitch {\n"
+                submodule += "\t\t\t@display(\"p=300,200\");\n" 
+                submodule += "\t\t}\n"
+                print(submodule, file=out_f)
 
-        # connection (edge)
-        print("\tconnections:\n")
-        for device in self.hosts:
-            print("\t\t{}.ethg++ <--> EthernetLink <--> {}.ethg++;".format(device.name, device.switch_name))
+            # connection (edge)
+            print("\tconnections:\n", file=out_f)
+            for device in self.hosts:
+                print("\t\t{}.ethg++ <--> EthernetLink <--> {}.ethg++;".format(device.name, device.switch_name), file=out_f)
 
-        for edge in self.edges:
-            print("\t\t{}.ethg++ <--> EthernetLink <--> {}.ethg++;".format(self.hosts[edge.src].switch_name, self.hosts[edge.dst].switch_name))
+            for edge in self.edges:
+                print("\t\t{}.ethg++ <--> EthernetLink <--> {}.ethg++;".format(self.hosts[edge.src].switch_name, self.hosts[edge.dst].switch_name), file=out_f)
 
-        # end
-        print("}")
+            # end
+            print("}", file=out_f)
 
 if __name__ == "__main__":
     T = Topology()

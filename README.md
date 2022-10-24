@@ -31,7 +31,8 @@ $ inet {path to ini} -u Cmdenv
 
 #### Step 5: export the result files to csv foramt
 ```sh=
-$ opp_scavetool x {-f filter} -F CSV-R -o {path to output.csv}
+$ opp_scavetool x {-f name=~meanBitLifeTimePerPacket:histogram
+} -F CSV-R -o {path to output.csv}
 ```
 
 #### Step 6: analysis the result

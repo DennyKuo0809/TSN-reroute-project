@@ -4,6 +4,8 @@ from platform import node
 import sys
 import copy
 from typing import List
+import pickle
+from argparse import ArgumentParser, Namespace
 
 
 total_cycle_length = 0
@@ -23,8 +25,8 @@ class Graph:
         self.edgeList.append([u, v])
         self.utilMap[u][v] = util
         
-    def modifyEdge(self, u, v, util):
-        self.utilMap[u][v] = util
+    def modifyEdge(self, u, v, delta):
+        self.utilMap[u][v] += delta
     
 def subGraph(G: Graph, nodeList: List):
     g = Graph(G.vertex_num)
@@ -75,7 +77,6 @@ class SCC():
             self.SCCs.append(sorted(scc))
         
     def tarjan(self):
-        print(list(self.graph.Adj.keys()))
         for node in list(self.graph.Adj.keys()):
             if self.discover_time[node] < 0:
                 self.dfs(node)
@@ -89,10 +90,11 @@ class SCC():
 #   Below are for circuit finding   #
 #===================================#
 class Johnson():
-    def __init__(self, G: Graph, constant: float):
+    def __init__(self, G: Graph, constant: float, reserve: float):
         self.ori_graph = G
         self.graph = G
         self.reduceConstant = constant
+        self.reservation = reserve
         
         
         self.S = 0
@@ -141,7 +143,7 @@ class Johnson():
         for w in self.graph.Adj[v]:
             if self.FOUND:
                 return True
-            if self.graph.utilMap[v][w] > 0:
+            if self.graph.utilMap[v][w] > self.reservation:
                 if w == self.S:
                     if self.stack + [self.stack[0]] not in self.allCircuits:
                         self.output()
@@ -194,7 +196,7 @@ class Johnson():
         while self.S < self.V :
             self.graph = subGraph(self.ori_graph, nodeList)
             sccs = SCC(self.graph).SCCs
-            print(f"sccs : {sccs}")
+            # print(f"sccs : {sccs}")
 
             if len(sccs) > 0:
                 self.S = min(sccs[0])
@@ -220,7 +222,7 @@ class Johnson():
                 self.S = self.V
     
     
-def parseGraph(inputFile: str):
+def parseGraph(inputFile: str, routeFile: str):
     g = None
     with open(inputFile, "r") as input_file:
         num_vertex = int(input_file.readline().strip())
@@ -232,32 +234,88 @@ def parseGraph(inputFile: str):
             j = 0
             for end_vertex, util in zip(neighbor_util[0::2], neighbor_util[1::2]):
                 g.addEdge(int(start_vertex), int(end_vertex), int(util))
+    ### Load type1 route
+    with open(routeFile, "rb") as route_file:
+        type1_route = pickle.load(route_file)
+        for r in type1_route:
+            for i in range(len(r[0]) - 1):
+                g.modifyEdge(r[0][i], r[0][i+1], -r[1])
     return g
     
 def cycleSelection(vertex_num: int, cycles: List[List[int]]):
     result = cycles[0]
     unCover = set([v for v in range(vertex_num) if v not in result])
-    covered = set(cycles[0])
     selected = set([0])
 
-    while unCover:
+    while unCover and len(list(selected)) < vertex_num:
         coverMost_idx = -1
         coverMost_num = -1
         for i, c in enumerate(cycles):
-            if i == 0:
+            if i == 0 or i in selected:
                 continue
             num_cover = len(list(unCover & set(c)))
             if num_cover >= coverMost_num:
                 coverMost_idx = i
                 coverMost_num = num_cover
-        common_nodes = list(set(cycles[coverMost_idx]) & set(result))[0]
-        result = result[result.index()]
+        if num_cover == 0:
+            break
+        common_node = list(set(cycles[coverMost_idx]) & set(result))[0]
+        unCover = unCover - set(cycles[coverMost_idx])
+        selected.update([coverMost_idx])
+        # print(common_node)
+        print(result, "\n", cycles[coverMost_idx])
+        result = result[:result.index(common_node)] + \
+            cycles[coverMost_idx][cycles[coverMost_idx].index(common_node):] + \
+                cycles[coverMost_idx][1:cycles[coverMost_idx].index(common_node)] + \
+                    result[result.index(common_node) : ]
+        # print(result)
+    return result
 
+
+
+def parse_args() -> Namespace:
+    parser = ArgumentParser()
+    parser.add_argument(
+        "--scenario",
+        type=str,
+        help="Path to input data."
+    )
+    parser.add_argument(
+        "--trim",
+        type=float,
+        help="When ther any new-found cycle, take this constant away from the capacity of all edges in the cycle.\n \
+                Default: 0.0, which means the cycle finding alrorithm will return all cycles in the graph.",
+        default=0.0
+    )
+    parser.add_argument(
+        "--reserve",
+        type=float,
+        help="Reserve partial of capacity for all edge to avoid run out of bandwidth of network.",
+        default=0.0
+    )
+    parser.add_argument(
+        "--type1_route",
+        type=str,
+        help="Path to the pickle file which stores the route of type1 streams"
+    )
+    parser.add_argument(
+        "--output",
+        type=str,
+        help="Path to the pickle file which stores the result of johnson algorithm.",
+        default="type2_route.pickle"
+    )
+    args = parser.parse_args()
+    return args
+
+def main(args):
+    g = parseGraph(args.scenario, args.type1_route)
+    j = Johnson(g, args.trim, args.reserve)
+    cycles = sorted(j.allCircuits, key=lambda c: len(c), reverse=True)
+    route = cycleSelection(g.vertex_num, cycles)
+    with open(args.output, "wb") as f:
+        pickle.dump(route, f)
+    print(route)
 
 if __name__ == "__main__":
-    inputFile = sys.argv[1]
-    reduceConst = sys.argv[2]
-    g = parseGraph(inputFile)
-    j = Johnson(g, float(reduceConst))
-    Cycles = sorted(j.allCircuits, key=lambda c: len(c), reverse=True)
-    print(len(Cycles[0]))
+    args = parse_args()
+    main(args)
