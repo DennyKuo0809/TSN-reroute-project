@@ -5,6 +5,7 @@ import pickle
 
 header = "[General]\n"
 header += "network = TSN_multipath\n"
+header += "sim-time-limit = 2ms\n"
 #############################################################
 #   disable automatic MAC forwarding table configuration    #
 #############################################################
@@ -46,7 +47,7 @@ header += "*.visualizer.streamRedundancyConfigurationVisualizer.lineColor = \"bl
 #   bitrate  of network interface   #
 #####################################
 header += "\n"
-header += "*.*.eth[*].bitrate = 10Mbps\n"
+header += "*.*.eth[*].bitrate = 100Mbps\n"
 
 class Route():
     def __init__(self, T):
@@ -138,7 +139,7 @@ class Route():
                             buf += f"*.{name}.app[{j}].io.destAddress = \"{app['dst']}\"\n"
                             buf += f"*.{name}.app[{j}].source.packetNameFormat = \"%M-%m-%c\"\n"
                             buf += f"*.{name}.app[{j}].source.displayStringTextFormat = \"sent %p pk (%l)\"\n"
-                            buf += f"*.{name}.app[{j}].source.packetLength = {int(1000*app['util'])}B\n"
+                            buf += f"*.{name}.app[{j}].source.packetLength = {int(500*app['util'])}B\n"
                             buf += f"*.{name}.app[{j}].source.productionInterval = 100us\n"
                             buf += f"*.{name}.app[{j}].display-name = \"type{app['type']}_{app['flow-id']}\"\n"
                             buf += f"*.{name}.app[{j}].io.destPort = {app['destport']}\n"
@@ -147,7 +148,7 @@ class Route():
                             buf += f"*.{name}.app[{j}].destAddresses = \"{app['dst']}\"\n"
                             buf += f"*.{name}.app[{j}].source.packetNameFormat = \"%M-%m-%c\"\n"
                             buf += f"*.{name}.app[{j}].source.displayStringTextFormat = \"sent %p pk (%l)\"\n"
-                            buf += f"*.{name}.app[{j}].messageLength = {int(1000*app['util'])}B\n"
+                            buf += f"*.{name}.app[{j}].messageLength = {int(500*app['util'])}B\n"
                             buf += f"*.{name}.app[{j}].sendInterval = 100us\n"
                             buf += f"*.{name}.app[{j}].startTime = 1ms\n"
                             buf += f"*.{name}.app[{j}].display-name = \"type{app['type']}_{app['flow-id']}\"\n"

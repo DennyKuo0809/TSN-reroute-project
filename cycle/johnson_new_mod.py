@@ -150,7 +150,7 @@ class Johnson():
         for w in self.graph.Adj[v]:
             if self.FOUND:
                 return True
-            if self.graph.utilMap[v][w] > self.reservation:
+            if self.graph.utilMap[v][w] >= self.reduceConstant + self.reservation:
                 if w == self.S:
                     if self.stack + [self.stack[0]] not in self.allCircuits:
                         self.output(INFO="circuit", reduceConst=self.reduceConstant)
@@ -176,9 +176,9 @@ class Johnson():
         self.blocked[v] = True
 
         for w in self.graph.Adj[v]:
-            if self.graph.utilMap[v][w] > self.reservation:
+            if self.graph.utilMap[v][w] >= self.reduceConstant +  self.reservation:
                 if w == self.S:
-                    self.output(INFO="normal", reduceConst=0)
+                    self.output(INFO="normal")
                     f = True
                 elif not self.blocked[w]:
                     if self.Normalcircuit(w):
@@ -196,6 +196,7 @@ class Johnson():
 
 
     def circuitFinding(self):
+        print("circuitFINDING!!!!!!!!!!!!!!!")
         nodeList = [node for node in range(self.graph.vertex_num)]
         
         while self.S < self.V :
@@ -310,13 +311,14 @@ def parseGraphAndStream(inputFile: str, routeFile: str):
         for _ in range(N):
             src, des, _, _ = input_file.readline().strip().split(" ")
             type2.append([src, des])
-
+    print(g.utilMap)
     ### Load type1 route
     with open(routeFile, "rb") as route_file:
         type1_route = pickle.load(route_file)
         for r in type1_route:
             for i in range(len(r[0]) - 1):
-                g.modifyEdge(r[0][i], r[0][i+1], -r[1])
+                g.modifyEdge(r[0][i], r[0][i+1], float(-r[1]/2))
+                print(f"{r[0][i]} {r[0][i+1]} {-r[1]}")
     return g, type2
     
 def cycleSelection(vertex_num: int, cycles: List[List[int]]):
@@ -398,6 +400,7 @@ def parse_args() -> Namespace:
 
 def main(args):
     g, type2_streams = parseGraphAndStream(args.scenario, args.type1_route)
+    print(g.utilMap)
     j = Johnson(g, args.trim, args.reserve, streams=type2_streams, warmup=args.warmup)
     cycles = sorted(j.allCircuits, key=lambda c: len(c), reverse=True)
     route = cycleSelection(g.vertex_num, cycles)
