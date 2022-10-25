@@ -1,6 +1,7 @@
-python3 johnson_mod.py \
+python3 johnson_new_mod.py \
 --scenario 5.in \
 --trim 0.3 \
---reserve 0.2 \
---type1_route /Users/guozongying/Desktop/專題/cycle/least_conflict_value-Type1-route.pickle \
---output least_conflict_value-Type2-route.pickle
+--reserve 0.35 \
+--type1_route $1 \
+--output $2 \
+--warmup True

@@ -42,3 +42,8 @@ $ opp_scavetool x {-f name=~meanBitLifeTimePerPacket:histogram
   - TSN_multipath.destination.app[0].sink
   - meanBitLifeTimePerPacket:histogram
   - https://inet.omnetpp.org/docs/showcases/measurement/endtoenddelay/doc/index.html
+
+
+### TODO List
+- warmup procedure
+- deal with nodes not in stronly connected component
